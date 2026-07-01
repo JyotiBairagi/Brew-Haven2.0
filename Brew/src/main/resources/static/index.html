@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brew Haven</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<!-- Coffee Beans Background -->
+<div class="coffee-beans" id="coffeeBeans"></div>
+
+<!-- Header -->
+<header>
+    <nav class="container">
+        <div class="logo">☕ Brew Haven</div>
+        <ul class="nav-links">
+
+            <li><a href="#" onclick="showSection('home')">Home</a></li>
+
+            <li><a href="#" onclick="showSection('menu')">Menu</a></li>
+
+            <li><a href="#" onclick="showSection('about')">About</a></li>
+
+            <li><a href="#" onclick="showSection('gps')">GPS</a></li>
+
+            <li id="userNav">
+                <a href="#" onclick="showSection('user')">User</a>
+            </li>
+
+            <li id="adminNav" style="display:none;">
+                <a href="#" onclick="showSection('admin')">Admin</a>
+            </li>
+
+            <li id="loginNav">
+                <a href="#" onclick="showSection('login')">Login</a>
+            </li>
+
+            <li>
+                <a href="#" onclick="showMyOrders()">My Orders</a>
+            </li>
+
+            <li id="welcomeUser" style="display:none;"></li>
+
+            <li>
+                <a href="#" onclick="showSection('assistant')">
+                    AI Assistant
+                </a>
+            </li>
+
+            <li id="logoutNav" style="display:none;">
+                <a href="#" onclick="logout()">Logout</a>
+            </li>
+
+            </ul>
+        <div class="cart-icon" onclick="toggleCart()">
+            🛒 Cart
+            <span class="cart-count" id="cartCount">0</span>
+        </div>
+    </nav>
+</header>
+
+<!-- Main Content -->
+<main class="container">
+    <!-- Home Section -->
+    <section id="home" class="section active">
+        <div class="hero">
+            <h1>Welcome to Brew Haven</h1>
+            <p>Experience the finest coffee crafted with passion and precision</p>
+            <button class="cta-button" onclick="showSection('menu')">Explore Our Menu</button>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="section">
+        <h2 class="section-title">Our Premium Menu</h2>
+        <div class="menu-grid" id="menuGrid">
+            <!-- JS populates items here -->
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="hero">
+            <h1>About Brew Haven</h1>
+            <p>Since 2020, we've been serving the community with premium coffee sourced from the finest plantations around the world. Our expert baristas craft each cup with love and precision.</p>
+            <div class="about-content">
+                <h3>Our Story</h3>
+                <p>Founded by coffee enthusiasts, Brew Haven started as a small local café with a big dream - to bring exceptional coffee experiences to every customer.</p>
+                <h3>Our Mission</h3>
+                <p>To create a warm, welcoming space where people can enjoy premium coffee, connect with friends, and feel at home.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="assistant" class="section">
+
+        <div class="ai-container">
+
+            <div class="ai-header">
+                <h2>☕ Brew Haven AI Assistant</h2>
+                <p> Ask anything about coffee</p>
+            </div>
+
+            <div id="chatBox"></div>
+
+            <div class="ai-input">
+
+        <textarea
+                id="aiPrompt"
+                placeholder="Ask anything about coffee..."
+        ></textarea>
+
+                <button
+                        class="ai-btn"
+                        onclick="askAI()">
+                    Send
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+    <!-- Login Section -->
+    <section id="login" class="section">
+        <div class="login-form">
+            <h2>Login to Your Account</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+                <p style="margin-top:15px;text-align:center;">
+                    <a href="#" onclick="showSection('forgotPassword')">
+                        Forgot Password?
+                    </a>
+                </p>
+            </form>
+            <p class="signup-text">Don't have an account?
+                <a href="#" onclick="showSection('signup')">Sign up here</a>
+            </p>
+        </div>
+    </section>
+
+    <section id="forgotPassword" class="section">
+
+        <div class="login-form">
+
+            <h2>Forgot Password</h2>
+
+            <input
+                    type="email"
+                    id="forgotEmail"
+                    placeholder="Enter Registered Email">
+
+            <br><br>
+
+            <button onclick="sendOtp()">
+
+                Send OTP
+
+            </button>
+
+            <br><br>
+
+            <input
+                    type="text"
+                    id="forgotOtp"
+                    placeholder="Enter OTP">
+
+            <br><br>
+
+            <button onclick="verifyOtp()">
+
+                Verify OTP
+
+            </button>
+
+            <br><br>
+
+            <input
+                    type="password"
+                    id="newPassword"
+                    placeholder="New Password">
+
+            <br><br>
+
+            <button onclick="resetPassword()">
+
+                Reset Password
+
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- Signup Section -->
+    <section id="signup" class="section">
+        <div class="login-form">
+            <h2>Create an Account</h2>
+            <form id="signupForm">
+
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="signupEmail">Email Address</label>
+                    <input type="email" id="signupEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <select id="role" required>
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <button type="submit" class="login-btn">Sign Up</button>
+            </form>
+            <p class="signup-text">Already have an account?
+                <a href="#" onclick="showSection('login')">Login here</a>
+            </p>
+        </div>
+    </section>
+
+    <!-- Order Details -->
+    <section id="orderDetails" class="section">
+        <div class="order-summary" id="orderSummary"></div>
+        <br>
+
+        <button
+                class="checkout-btn"
+                onclick="downloadBill()">
+
+            Download Bill
+
+        </button>
+    </section>
+    <section id="myOrders" class="section">
+
+        <h2>My Orders</h2>
+
+        <div id="myOrdersList"></div>
+
+    </section>
+
+    <!-- GPS Section -->
+    <!-- GPS Section -->
+    <section id="gps" class="section">
+        <h2>Your Location</h2>
+        <button onclick="getLocation()">Get My Location</button>
+        <pre id="location" style="white-space: pre-wrap; margin-top: 1rem;"></pre>
+
+        <div id="gpsOrder" style="margin-top:2rem; display:none;">
+            <h3>Ready to Order?</h3>
+            <p>You can place your order online using your current location.</p>
+            <button class="checkout-btn" onclick="gpsCheckout()">Order Online</button>
+        </div>
+    </section>
+
+
+
+    <!-- User Section -->
+    <section id="user" class="section">
+        <div class="hero">
+            <h1>User Dashboard</h1>
+            <p>Welcome back, valued customer! View your orders and preferences here.</p>
+            <div id="userDetails"></div> <!-- User details will appear here -->
+        </div>
+    </section>
+
+
+    <!-- Admin Section -->
+    <section id="admin" class="section">
+
+        <h1>Admin Dashboard</h1>
+
+        <div class="dashboard">
+
+            <div class="card">
+                <h2 id="totalUsers">0</h2>
+                <p>Total Users</p>
+            </div>
+
+            <div class="card">
+                <h2 id="totalOrders">0</h2>
+                <p>Total Orders</p>
+            </div>
+
+            <div class="card">
+                <h2 id="totalRevenue">₹0</h2>
+                <p>Total Revenue</p>
+            </div>
+
+        </div>
+
+        <br>
+
+        <h2>Users</h2>
+
+        <table id="usersTable">
+
+            <thead>
+
+            <tr>
+
+                <th>Name</th>
+
+                <th>Email</th>
+
+                <th>Role</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody></tbody>
+
+        </table>
+
+        <br><br>
+
+        <h2>Orders</h2>
+
+        <table id="ordersTable">
+
+            <thead>
+
+            <tr>
+
+                <th>Email</th>
+
+                <th>Items</th>
+
+                <th>Total</th>
+
+                <th>Payment</th>
+
+                <th>Status</th>
+
+                <th>Update</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody></tbody>
+
+        </table>
+
+    </section>
+
+</main>
+
+<!-- Cart Modal -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()">
+    <div class="cart-modal" onclick="event.stopPropagation()">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button class="close-cart" onclick="toggleCart()">✕</button>
+        </div>
+        <div id="cartItems"></div>
+        <div class="cart-total">
+            <h3>Total: ₹<span id="cartTotal">0.00</span></h3>
+        </div>
+        <div class="cart-actions">
+
+            <button class="checkout-btn" onclick="checkout()">Pickup Order</button>
+            <button class="checkout-btn" onclick="gpsCheckout()">Order with GPS</button>
+        </div>
+
+
+    </div>
+</div>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script src="script.js"></script>
+</body>
+</html>
