@@ -245,6 +245,8 @@ http://localhost:8080
 # 📸 Main Modules
 
 - Home Page
+- <img width="1920" height="1080" alt="Screenshot (88)" src="https://github.com/user-attachments/assets/7e65d5d1-c2c0-4b5a-a722-671b0f66c1c6" />
+
 - Coffee Menu
 - User Dashboard
 - Admin Dashboard
