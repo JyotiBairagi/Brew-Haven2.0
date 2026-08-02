@@ -30,7 +30,7 @@ function renderMenu() {
     const grid = document.getElementById('menuGrid');
     grid.innerHTML = menuItems.map(item => `
         <div class="menu-item">
-           <img src="/${item.image}" alt="${item.name}">
+         <img src="/images/${item.image}"> alt="${item.name}">
             <h3>${item.name}</h3>
             <p>${item.description}</p>
             <div class="price">₹${item.price.toFixed(2)}</div>
@@ -653,9 +653,9 @@ async function showMyOrders(){
 
     showSection("myOrders");
 
-    const response = await `${API_URL}/api/orders/${currentUser.email}`
-
-    );
+   const response = await fetch(
+       `${API_URL}/api/orders/${currentUser.email}`
+   );
 
     const orders = await response.json();
 
@@ -696,15 +696,12 @@ async function showMyOrders(){
 }
 async function updateOrderStatus(id,status){
 
-    const response = await fetch(
-
-    `${API_URL}/api/orders/${id}/${status}`
-
-    {
-
-        method:"PUT"
-
-    });
+   const response = await fetch(
+       `${API_URL}/api/orders/${id}/${status}`,
+       {
+           method: "PUT"
+       }
+   );
 
     if(response.ok){
 
@@ -898,7 +895,7 @@ async function askAI(){
 
     try{
 
-        const res=await fetch("/api/ai/chat",{
+        const res=await fetch(`${API_URL}/api/ai/chat`, {
 
             method:"POST",
 
