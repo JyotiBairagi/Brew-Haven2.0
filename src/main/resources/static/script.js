@@ -523,7 +523,7 @@ async function loadMenu() {
 
     try {
 
-     const response = await fetch("http://localhost:8080/api/menu");
+     const response = await fetch( "https://brew-haven2-0-2.onrender.com");
 
         if(!response.ok){
             throw new Error("Cannot load menu");
