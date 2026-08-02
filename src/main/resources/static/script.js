@@ -30,7 +30,7 @@ function renderMenu() {
     const grid = document.getElementById('menuGrid');
     grid.innerHTML = menuItems.map(item => `
         <div class="menu-item">
-         <img src="/images/${item.image}"> alt="${item.name}">
+       <img src="/${item.image}" alt="${item.name}">
             <h3>${item.name}</h3>
             <p>${item.description}</p>
             <div class="price">₹${item.price.toFixed(2)}</div>
