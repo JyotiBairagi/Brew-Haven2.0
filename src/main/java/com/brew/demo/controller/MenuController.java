@@ -32,6 +32,10 @@ public class MenuController {
         return menuService.getById(id);
     }
 
+    @GetMapping("/count")
+    public String count() {
+        return "Total menu items = " + menuService.getAllItems().size();
+    }
     @PutMapping("/{id}")
     public Menu update(@PathVariable Long id, @RequestBody Menu menu) {
         return menuService.updateItem(id, menu);
