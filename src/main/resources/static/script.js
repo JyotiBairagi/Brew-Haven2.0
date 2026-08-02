@@ -2,6 +2,7 @@
 let menuItems = [];
 let cart = [];
 let currentUser = null;
+const API_URL = "https://brew-haven2-0-2.onrender.com";
 
 // ===================== INITIALIZE =====================
 document.addEventListener('DOMContentLoaded', () => {
@@ -182,7 +183,7 @@ document.getElementById("signupForm").addEventListener("submit", async function 
 
     try{
 
-        const response = await fetch("http://localhost:8080/api/users/register",{
+        const response = await fetch(`${API_URL}/api/users/register`,{
 
             method:"POST",
 
@@ -224,7 +225,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
 
     try{
 
-        const response = await fetch("http://localhost:8080/api/users/login",{
+        const response = await fetch(`${API_URL}/api/users/login`,{
 
             method:"POST",
 
@@ -379,7 +380,7 @@ async function openRazorpay(orderData){
 
     console.log("openRazorpay called");
 
-    const response = await fetch("http://localhost:8080/api/payment/createOrder",{
+    const response = await fetch(`${API_URL}/api/payment/createOrder`,{
 
         method:"POST",
 
@@ -419,7 +420,7 @@ handler: async function(response){
 
     orderData.razorpayOrderId = response.razorpay_order_id;
 
-    await fetch("http://localhost:8080/api/orders",{
+    await fetch(`${API_URL}/api/orders`,{
         method:"POST",
         headers:{
             "Content-Type":"application/json"
@@ -523,8 +524,7 @@ async function loadMenu() {
 
     try {
 
-     const response = await fetch( "https://brew-haven2-0-2.onrender.com");
-
+const response = await fetch(`${API_URL}/api/menu`);
         if(!response.ok){
             throw new Error("Cannot load menu");
         }
@@ -548,7 +548,7 @@ async function loadMenu() {
 
 async function loadAllUsers(){
 
-    const response = await fetch("http://localhost:8080/api/users");
+    const response = await fetch(`${API_URL}/api/users`);
 
     const users = await response.json();
 
@@ -579,7 +579,7 @@ async function loadAllUsers(){
 }
 async function loadAllOrders(){
 
-    const response = await fetch("http://localhost:8080/api/orders");
+    const response = await fetch(`${API_URL}/api/orders`);
 
     const orders = await response.json();
 
@@ -653,9 +653,7 @@ async function showMyOrders(){
 
     showSection("myOrders");
 
-    const response = await fetch(
-
-        `http://localhost:8080/api/orders/${currentUser.email}`
+    const response = await `${API_URL}/api/orders/${currentUser.email}`
 
     );
 
@@ -700,7 +698,7 @@ async function updateOrderStatus(id,status){
 
     const response = await fetch(
 
-    `http://localhost:8080/api/orders/${id}/${status}`,
+    `${API_URL}/api/orders/${id}/${status}`
 
     {
 
@@ -799,7 +797,7 @@ async function sendOtp(){
     const email = document.getElementById("forgotEmail").value;
 
     const response = await fetch(
-        "http://localhost:8080/api/users/sendOtp",
+       `${API_URL}/api/users/sendOtp`,
         {
             method:"POST",
             headers:{
@@ -823,7 +821,7 @@ async function verifyOtp(){
     const otp = document.getElementById("forgotOtp").value;
 
     const response = await fetch(
-        "http://localhost:8080/api/users/verifyOtp",
+       `${API_URL}/api/users/verifyOtp`,
         {
             method:"POST",
             headers:{
@@ -848,7 +846,7 @@ async function resetPassword(){
     const password = document.getElementById("newPassword").value;
 
     const response = await fetch(
-        "http://localhost:8080/api/users/resetPassword",
+        `${API_URL}/api/users/resetPassword`,
         {
             method:"POST",
             headers:{
